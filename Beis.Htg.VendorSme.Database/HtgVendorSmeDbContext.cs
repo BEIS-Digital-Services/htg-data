@@ -1198,27 +1198,7 @@ namespace Beis.Htg.VendorSme.Database
                         settings_key = "MAX_PRODUCT_LIVE",
                         settings_value = "9"
                     });
-                //Commented these as not there in prod. Can revert while doing next inflight migration 
-                //new settings_project
-                //{
-                //    settings_key = "Encrypt_PasswordIteration",
-                //    settings_value = "2"
-                //},
-                //new settings_project
-                //{
-                //    settings_key = "Encrypt_InitialVector",
-                //    settings_value = "OFRna73m*aze01xY"
-                //},
-                //new settings_project
-                //{
-                //    settings_key = "Encrypt_KeySize",
-                //    settings_value = "256"
-                //},
-                //new settings_project
-                //{
-                //    settings_key = "Encrypt_Salt",
-                //    settings_value = "Kosherista"
-                //}
+     
             });
 
             modelBuilder.Entity<token>(entity =>
@@ -1442,34 +1422,6 @@ namespace Beis.Htg.VendorSme.Database
             modelBuilder.Entity<vendor_status>(entity =>
             {
                 entity.ToTable("vendor_status");
-
-                //Commented these as not there in prod. Can revert while doing next inflight migration 
-                //entity.HasData(
-                //    new vendor_status
-                //    {
-                //        id = 10,
-                //        status_description = "Approved"
-                //    },
-                //    new vendor_status
-                //    {
-                //        id = 20,
-                //        status_description = "Rejected"
-                //    },
-                //    new vendor_status
-                //    {
-                //        id = 30,
-                //        status_description = "In review"
-                //    },
-                //    new vendor_status
-                //    {
-                //        id = 40,
-                //        status_description = "Suspended"
-                //    },
-                //    new vendor_status
-                //    {
-                //        id = 50,
-                //        status_description = "Inactive"
-                //    });
             });
 
             modelBuilder.Entity<vendor_user_login>(entity =>

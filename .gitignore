@@ -51,7 +51,6 @@ Thumbs.db
 .vs/
 obj/
 bin/
-beis-htg-sme-voucher-webapp.sln.sln
 *.csproj.user
 *.suo
 .vs
