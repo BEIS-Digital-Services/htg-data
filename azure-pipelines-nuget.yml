@@ -1,0 +1,22 @@
+trigger:
+- main
+
+resources:
+  repositories:
+    - repository: template
+      type: git
+      name: DevOps
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  major: '1'
+  minor: '1'
+  buildConfiguration: 'Release'
+
+extends:
+  template: build-nuget-package.yml@template
+  parameters:
+    projectToBuild: ''
+    projectToPublish: ''
