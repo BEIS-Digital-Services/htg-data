@@ -18,5 +18,5 @@ variables:
 extends:
   template: build-nuget-package.yml@template
   parameters:
-    projectToBuild: ''
-    projectToPublish: ''
+    projectToBuild: 'Beis.Htg.VendorSme.Database.csproj'
+    projectToPublish: 'Beis.Htg.VendorSme.Database.Tests.csproj'
