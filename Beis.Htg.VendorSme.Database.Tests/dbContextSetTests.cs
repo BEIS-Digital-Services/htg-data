@@ -14,7 +14,8 @@ namespace Beis.Htg.VendorSme.Database.Tests;
 /// Currently only used as local integration test, until <see cref="vendor_api_call_status">vendor_api_call_status</see> is updated.
 /// </summary>
 [Ignore("Local Integration tests")]
-public class dbContextSetTests
+[TestFixture]
+public class DbContextSetTests
 {
     private readonly MethodInfo? _setMethod =
         typeof(HtgVendorSmeDbContext).GetMethod(nameof(DbContext.Set), Type.EmptyTypes);
