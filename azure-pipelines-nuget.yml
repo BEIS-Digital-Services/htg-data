@@ -20,4 +20,3 @@ extends:
   parameters:
     solutionToBuild: 'Beis.Htg.VendorSme.Database.sln'
     projectToPublish: 'Beis.Htg.VendorSme.Database.csproj'
-    packageName: 'beis.htg.voucher.persistence'
