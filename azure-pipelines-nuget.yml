@@ -19,4 +19,5 @@ extends:
   template: build-nuget-package.yml@template
   parameters:
     solutionToBuild: 'Beis.HelpToGrow.Persistence.sln'
-    projectToPublish: 'Beis.HelpToGrow.Persistence.csproj'
+    projectsToPublish: 
+      - 'Beis.HelpToGrow.Persistence.csproj'
