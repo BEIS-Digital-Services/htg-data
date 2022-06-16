@@ -21,6 +21,7 @@ namespace Beis.HelpToGrow.Persistence
         public virtual DbSet<DataProtectionKey> DataProtectionKeys { get; set; }
         public virtual DbSet<additional_cost> additional_costs { get; set; }
         public virtual DbSet<additional_cost_desc> additional_cost_descs { get; set; }
+        public virtual DbSet<additional_cost_type> additional_cost_types { get; set; }        
         public virtual DbSet<administrator> administrators { get; set; }
         public virtual DbSet<appeal> appeals { get; set; }
         public virtual DbSet<appeal_status> appeal_statuses { get; set; }
@@ -98,6 +99,11 @@ namespace Beis.HelpToGrow.Persistence
                     .WithMany(p => p.additional_costs)
                     .HasForeignKey(d => d.product_price_id)
                     .OnDelete(DeleteBehavior.ClientSetNull);
+
+                entity.HasOne(d => d.additional_cost_type)
+                    .WithMany(p => p.additional_costs)
+                    .HasForeignKey(d => d.additional_cost_type_id)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
             });
 
             modelBuilder.Entity<additional_cost_desc>(entity =>
@@ -107,6 +113,15 @@ namespace Beis.HelpToGrow.Persistence
                 entity.ToTable("additional_cost_desc");
 
                 entity.Property(e => e.additional_costDesc).HasMaxLength(5000);
+            });
+
+            modelBuilder.Entity<additional_cost_type>(entity =>
+            {
+                entity.HasKey(e => e.additional_cost_type_id);
+
+                entity.ToTable("additional_cost_type");
+
+                entity.Property(e => e.description).HasMaxLength(256);
             });
 
             modelBuilder.Entity<administrator>(entity =>
