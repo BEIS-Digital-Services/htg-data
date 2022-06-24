@@ -12,8 +12,8 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  major: '2'
-  minor: '1'
+  major: '6'
+  minor: '0'
   buildConfiguration: 'Release'
 
 extends:
