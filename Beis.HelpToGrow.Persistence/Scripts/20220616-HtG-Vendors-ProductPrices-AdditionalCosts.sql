@@ -1,10 +1,16 @@
-﻿
+﻿/*
+    To be run on help_to_grow database for e-commerce additional_cost_type changes.
+    We cannot push changes for this to htg-data repository as it is locked pending azure devops change.
+*/
+
 	/*
 	 * 1. New additional_cost.AdditionalCostDisplayValue Column
 	 * 
 	 */
 	ALTER TABLE public.additional_cost
 	ADD COLUMN IF NOT EXISTS additional_cost_display_value varchar(256) null;
+
+	CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 	
 	UPDATE public.additional_cost ac
 	SET additional_cost_display_value = 

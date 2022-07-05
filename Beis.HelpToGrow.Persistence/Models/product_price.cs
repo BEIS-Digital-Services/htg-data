@@ -48,6 +48,7 @@ namespace Beis.HelpToGrow.Persistence.Models
         public string payment_terms_discount_unit { get; set; }
         public string product_price_sku { get; set; }
         public string product_price_title { get; set; }
+        public string product_price_currency { get; set; }
 
         public virtual free_trial_end_action free_trial_end_action { get; set; }
         public virtual product product { get; set; }
