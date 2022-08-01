@@ -1,7 +1,6 @@
 ﻿using System;
 #nullable disable
 
-
 namespace Beis.HelpToGrow.Persistence.Models
 {
     public class enterprise
@@ -37,6 +36,9 @@ namespace Beis.HelpToGrow.Persistence.Models
         public DateTime? enterprise_created_date { get; set; }
         public bool? marketing_consent { get; set; }
 
+        public string applicant_phone_number { get; set; }
+
+        public bool? marketing_consent_by_phone { get; set; }
         public virtual indesser_api_call_status indesser_api_call_status { get; set; }
         public virtual appeal appeal { get; set; }
     }
