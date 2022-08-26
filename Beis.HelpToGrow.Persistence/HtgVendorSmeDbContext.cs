@@ -31,8 +31,6 @@ namespace Beis.HelpToGrow.Persistence
         public virtual DbSet<indesser_api_call_status> indesser_api_call_statuses { get; set; }
         public virtual DbSet<product> products { get; set; }
         public virtual DbSet<product_capability> product_capabilities { get; set; }
-        public virtual DbSet<product_category> product_categories { get; set; }
-        public virtual DbSet<product_compare> product_compares { get; set; }
         public virtual DbSet<product_filter> product_filters { get; set; }
         public virtual DbSet<product_price> product_prices { get; set; }
         public virtual DbSet<product_price_base_description> product_price_base_descriptions { get; set; }
@@ -254,39 +252,6 @@ namespace Beis.HelpToGrow.Persistence
                 entity.Property(e => e.draft_other_compatability).HasMaxLength(5000);
 
                 entity.Property(e => e.draft_review_url).HasMaxLength(500); 
-            });
-
-            modelBuilder.Entity<product_category>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.ToTable("product_category");
-
-                entity.HasIndex(e => e.product_id, "ixfk_product_category_product");
-
-                entity.HasIndex(e => e.category_id, "ixfk_product_category_settings_category_type");
-
-                entity.HasOne(d => d.category)
-                    .WithMany()
-                    .HasForeignKey(d => d.category_id)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_product_category_settings_category_type");
-            });
-
-            modelBuilder.Entity<product_compare>(entity =>
-            {
-                entity.ToTable("product_compare");
-
-                entity.HasIndex(e => e.type_id, "ixfk_product_comparator_product_types");
-
-                entity.Property(e => e.id).ValueGeneratedNever();
-
-                entity.Property(e => e.item_name)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .HasColumnName("item name");
-
-                entity.Property(e => e.sortorder).HasDefaultValueSql("0");
             });
 
             modelBuilder.Entity<product_price>(entity =>
