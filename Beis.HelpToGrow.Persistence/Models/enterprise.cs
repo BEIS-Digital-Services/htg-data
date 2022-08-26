@@ -32,7 +32,6 @@ namespace Beis.HelpToGrow.Persistence.Models
         public bool agreed_tandc { get; set; }
         public string risk_profile_score { get; set; }
         public string scorecheck_score { get; set; }
-        public long? indesser_api_call_status_id { get; set; }
         public DateTime? enterprise_created_date { get; set; }
         public bool? marketing_consent { get; set; }
 
@@ -40,6 +39,5 @@ namespace Beis.HelpToGrow.Persistence.Models
 
         public bool? marketing_consent_by_phone { get; set; }
         public virtual indesser_api_call_status indesser_api_call_status { get; set; }
-        public virtual appeal appeal { get; set; }
     }
 }
