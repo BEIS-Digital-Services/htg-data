@@ -10,7 +10,6 @@ namespace Beis.HelpToGrow.Persistence.Models
     {
         public vendor_company()
         {
-            product1s = new HashSet<product1>();
             vendor_company_users = new HashSet<vendor_company_user>();
         }
 
@@ -35,8 +34,6 @@ namespace Beis.HelpToGrow.Persistence.Models
         public string ip_access_end { get; set; }
         public string edit_log { get; set; }
         public string ipaddresses { get; set; }
-        public virtual vos_approval_tasks_vendor vos_approval_tasks_vendor { get; set; }
-        public virtual ICollection<product1> product1s { get; set; }
         public virtual ICollection<vendor_company_user> vendor_company_users { get; set; }
     }
 }

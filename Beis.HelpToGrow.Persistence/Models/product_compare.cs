@@ -9,7 +9,6 @@ namespace Beis.HelpToGrow.Persistence.Models
     {
         public product_compare()
         {
-            product_compare_entries = new HashSet<product_compare_entry>();
         }
 
         public long id { get; set; }
@@ -17,6 +16,5 @@ namespace Beis.HelpToGrow.Persistence.Models
         public long type_id { get; set; }
         public int? sortorder { get; set; }
 
-        public virtual ICollection<product_compare_entry> product_compare_entries { get; set; }
     }
 }

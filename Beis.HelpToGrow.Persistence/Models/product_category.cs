@@ -11,6 +11,5 @@ namespace Beis.HelpToGrow.Persistence.Models
         public long category_id { get; set; }
 
         public virtual settings_category_type category { get; set; }
-        public virtual product1 product { get; set; }
     }
 }

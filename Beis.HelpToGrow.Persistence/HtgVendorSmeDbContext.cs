@@ -22,9 +22,6 @@ namespace Beis.HelpToGrow.Persistence
         public virtual DbSet<additional_cost> additional_costs { get; set; }
         public virtual DbSet<additional_cost_desc> additional_cost_descs { get; set; }
         public virtual DbSet<additional_cost_type> additional_cost_types { get; set; }        
-        public virtual DbSet<administrator> administrators { get; set; }
-        public virtual DbSet<appeal> appeals { get; set; }
-        public virtual DbSet<appeal_status> appeal_statuses { get; set; }
         public virtual DbSet<eligibility_check_result> eligibility_check_results { get; set; }
         public virtual DbSet<enterprise> enterprises { get; set; }
         public virtual DbSet<enterprise_eligibility_status> enterprise_eligibility_statuses { get; set; }
@@ -33,12 +30,9 @@ namespace Beis.HelpToGrow.Persistence
         public virtual DbSet<fcasociety> fcasocieties { get; set; }
         public virtual DbSet<indesser_api_call_status> indesser_api_call_statuses { get; set; }
         public virtual DbSet<product> products { get; set; }
-        public virtual DbSet<product1> products1 { get; set; }
         public virtual DbSet<product_capability> product_capabilities { get; set; }
         public virtual DbSet<product_category> product_categories { get; set; }
         public virtual DbSet<product_compare> product_compares { get; set; }
-        public virtual DbSet<product_compare_entry> product_compare_entries { get; set; }
-        public virtual DbSet<product_eligibility_declare> product_eligibility_declares { get; set; }
         public virtual DbSet<product_filter> product_filters { get; set; }
         public virtual DbSet<product_price> product_prices { get; set; }
         public virtual DbSet<product_price_base_description> product_price_base_descriptions { get; set; }
@@ -46,7 +40,6 @@ namespace Beis.HelpToGrow.Persistence
         public virtual DbSet<product_price_secondary_description> product_price_secondary_descriptions { get; set; }
         public virtual DbSet<product_price_secondary_metric> product_price_secondary_metrics { get; set; }
         public virtual DbSet<product_status> product_statuses { get; set; }
-        public virtual DbSet<productstatus> productstatuses { get; set; }
         public virtual DbSet<settings_category_type> settings_category_types { get; set; }
         public virtual DbSet<settings_licence_type> settings_licence_types { get; set; }
         public virtual DbSet<settings_product_capability> settings_product_capabilities { get; set; }
@@ -63,11 +56,7 @@ namespace Beis.HelpToGrow.Persistence
         public virtual DbSet<vendor_company> vendor_companies { get; set; }
         public virtual DbSet<vendor_company_user> vendor_company_users { get; set; }
         public virtual DbSet<vendor_reconciliation_sale> vendor_reconciliation_sales { get; set; }
-        public virtual DbSet<vendor_self_declare> vendor_self_declares { get; set; }
         public virtual DbSet<vendor_status> vendor_statuses { get; set; }
-        public virtual DbSet<vendor_user_login> vendor_user_logins { get; set; }
-        public virtual DbSet<vos_approval_tasks_product> vos_approval_tasks_products { get; set; }
-        public virtual DbSet<vos_approval_tasks_vendor> vos_approval_tasks_vendors { get; set; }
 
         public virtual DbSet<companies_house_api_result> companies_house_api_result { get; set; }
 
@@ -124,60 +113,6 @@ namespace Beis.HelpToGrow.Persistence
                 entity.Property(e => e.description).HasMaxLength(256);
             });
 
-            modelBuilder.Entity<administrator>(entity =>
-            {
-                entity.HasKey(e => e.user_id)
-                    .HasName("pk_administrator");
-
-                entity.ToTable("administrator");
-
-                entity.Property(e => e.user_id).ValueGeneratedNever();
-
-                entity.Property(e => e.email)
-                    .IsRequired()
-                    .HasMaxLength(500);
-
-                entity.Property(e => e.fullname)
-                    .IsRequired()
-                    .HasMaxLength(500);
-
-                entity.Property(e => e.password)
-                    .IsRequired()
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.sname)
-                    .IsRequired()
-                    .HasMaxLength(500);
-
-                entity.Property(e => e.username)
-                    .IsRequired()
-                    .HasMaxLength(50);
-            });
-
-            modelBuilder.Entity<appeal>(entity =>
-            {
-                entity.HasKey(e => e.appeal_id);
-
-                entity.ToTable("appeal");
-            });
-
-            modelBuilder.Entity<appeal_status>(entity =>
-            {
-                entity.HasKey(e => e.appeal_status_id);
-
-                entity.ToTable("appeal_status");
-
-                entity.HasIndex(e => e.appeal_status1, "IX_appeal_status_appeal_status");
-
-                entity.Property(e => e.appeal_status1).HasColumnName("appeal_status");
-
-                entity.Property(e => e.appeal_status_desc).IsRequired();
-
-                entity.HasOne(d => d.appeal_status1Navigation)
-                    .WithMany(p => p.appeal_statuses)
-                    .HasForeignKey(d => d.appeal_status1);
-            });
-
             modelBuilder.Entity<eligibility_check_result>(entity =>
             {
                 entity.HasKey(e => e.eligibility_check_result_id);
@@ -201,8 +136,6 @@ namespace Beis.HelpToGrow.Persistence
                 entity.HasIndex(e => e.companies_house_no, "IX_enterprise_companies_house_no")
                     .IsUnique();
 
-                entity.HasIndex(e => e.indesser_api_call_status_id, "IX_enterprise_enterprise");
-
                 entity.HasIndex(e => e.fca_no, "IX_enterprise_fca_no")
                     .IsUnique();
 
@@ -212,13 +145,7 @@ namespace Beis.HelpToGrow.Persistence
 
                 entity.Property(e => e.applicant_role).IsRequired();
 
-                entity.Property(e => e.indesser_api_call_status_id).HasColumnName("indesser_api_call_status_id");
-
                 entity.Property(e => e.enterprise_name).IsRequired();
-
-                entity.HasOne(d => d.appeal)
-                    .WithMany(p => p.enterprises)
-                    .HasForeignKey(d => d.indesser_api_call_status_id);
 
                 entity.HasOne(d => d.indesser_api_call_status)
                     .WithOne(_ => _.enterprise)               
@@ -329,74 +256,6 @@ namespace Beis.HelpToGrow.Persistence
                 entity.Property(e => e.draft_review_url).HasMaxLength(500); 
             });
 
-            modelBuilder.Entity<product1>(entity =>
-            {
-                entity.HasKey(e => e.product_id)
-                    .HasName("pk_product");
-
-                entity.ToTable("product");
-
-                entity.HasIndex(e => e.product_type, "ixfk_product_product_types");
-
-                entity.HasIndex(e => e.status, "ixfk_product_productstatus");
-
-                entity.HasIndex(e => e.vendor_id, "ixfk_product_vendor_company");
-
-                entity.Property(e => e.product_id).ValueGeneratedNever();
-
-                entity.Property(e => e.customer_base).HasMaxLength(5000);
-
-                entity.Property(e => e.cyber_complance).HasMaxLength(5000);
-
-                entity.Property(e => e.minimum_software_requirements).HasMaxLength(5000);
-
-                entity.Property(e => e.other_capabilities).HasMaxLength(5000);
-
-                entity.Property(e => e.price)
-                    .IsRequired()
-                    .HasMaxLength(5000);
-
-                entity.Property(e => e.product_description).HasMaxLength(5000);
-
-                entity.Property(e => e.product_logo).HasMaxLength(50);
-
-                entity.Property(e => e.product_name).HasMaxLength(50);
-
-                entity.Property(e => e.product_sku)
-                    .HasMaxLength(50)
-                    .HasComment("this has to be unique against the vendor");
-
-                entity.Property(e => e.product_version).HasMaxLength(10);
-
-                entity.Property(e => e.ratings).HasMaxLength(5000);
-
-                entity.Property(e => e.redemption_url).HasMaxLength(500);
-
-                entity.Property(e => e.retention_rate).HasMaxLength(5000);
-
-                entity.Property(e => e.sales_discount).HasMaxLength(5000);
-
-                entity.Property(e => e.sme_support).HasMaxLength(5000);
-
-                entity.Property(e => e.target_customer).HasMaxLength(5000);
-
-                entity.Property(e => e.website_url)
-                    .IsRequired()
-                    .HasMaxLength(5000);
-
-                entity.HasOne(d => d.statusNavigation)
-                    .WithMany(p => p.product1s)
-                    .HasForeignKey(d => d.status)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_product_productstatus");
-
-                entity.HasOne(d => d.vendor)
-                    .WithMany(p => p.product1s)
-                    .HasForeignKey(d => d.vendor_id)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_product_vendor_company");
-            });
-
             modelBuilder.Entity<product_category>(entity =>
             {
                 entity.HasNoKey();
@@ -412,12 +271,6 @@ namespace Beis.HelpToGrow.Persistence
                     .HasForeignKey(d => d.category_id)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_product_category_settings_category_type");
-
-                entity.HasOne(d => d.product)
-                    .WithMany()
-                    .HasForeignKey(d => d.product_id)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_product_category_product");
             });
 
             modelBuilder.Entity<product_compare>(entity =>
@@ -434,50 +287,6 @@ namespace Beis.HelpToGrow.Persistence
                     .HasColumnName("item name");
 
                 entity.Property(e => e.sortorder).HasDefaultValueSql("0");
-            });
-
-            modelBuilder.Entity<product_compare_entry>(entity =>
-            {
-                entity.ToTable("product_compare_entry");
-
-                entity.HasIndex(e => e.product_id, "ixfk_prodct_comprator_entry_product");
-
-                entity.HasIndex(e => e.compare_id, "ixfk_prodct_comprator_entry_product_comparator");
-
-                entity.Property(e => e.id).ValueGeneratedNever();
-
-                entity.Property(e => e.item_value).HasMaxLength(5000);
-
-                entity.HasOne(d => d.compare)
-                    .WithMany(p => p.product_compare_entries)
-                    .HasForeignKey(d => d.compare_id)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_prodct_comprator_entry_product_comparator");
-
-                entity.HasOne(d => d.product)
-                    .WithMany(p => p.product_compare_entries)
-                    .HasForeignKey(d => d.product_id)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_prodct_comprator_entry_product");
-            });
-
-            modelBuilder.Entity<product_eligibility_declare>(entity =>
-            {
-                entity.ToTable("product_eligibility_declare");
-
-                entity.HasIndex(e => e.product_id, "ixfk_product_eligibility_declare_product");
-
-                entity.Property(e => e.id).ValueGeneratedNever();
-
-                entity.Property(e => e.mtd)
-                    .HasComment(
-                        "As the options are textual, the HTML should store the values in the value field as text");
-
-                entity.HasOne(d => d.product)
-                    .WithMany(p => p.product_eligibility_declares)
-                    .HasForeignKey(d => d.product_id)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_product_eligibility_declare_product");
             });
 
             modelBuilder.Entity<product_price>(entity =>
@@ -610,15 +419,6 @@ namespace Beis.HelpToGrow.Persistence
                 //        id = 1000,
                 //        status_description = "Not in scheme"
                 //    });
-            });
-
-            modelBuilder.Entity<productstatus>(entity =>
-            {
-                entity.ToTable("productstatus");
-
-                entity.Property(e => e.id).ValueGeneratedNever();
-
-                entity.Property(e => e.status_description).HasMaxLength(50);
             });
 
             modelBuilder.Entity<settings_category_type>(entity =>
@@ -1418,108 +1218,9 @@ namespace Beis.HelpToGrow.Persistence
                 entity.HasKey(e => e.reconciliation_sales_id);
             });
 
-            modelBuilder.Entity<vendor_self_declare>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.ToTable("vendor_self_declare");
-
-                entity.HasIndex(e => e.vendorid, "ixfk_vemdor_self_declare_vendor_company");
-
-                entity.HasIndex(e => e.application_made_userid, "ixfk_vemdor_self_declare_vendor_company_user");
-
-                entity.HasOne(d => d.vendor)
-                    .WithMany()
-                    .HasForeignKey(d => d.vendorid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_vemdor_self_declare_vendor_company");
-            });
-
             modelBuilder.Entity<vendor_status>(entity =>
             {
                 entity.ToTable("vendor_status");
-            });
-
-            modelBuilder.Entity<vendor_user_login>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.ToTable("vendor_user_login");
-
-                entity.HasIndex(e => e.userid, "ixfk_vendor_user_login_vendor_company_user");
-
-                entity.Property(e => e.password)
-                    .IsRequired()
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.username)
-                    .IsRequired()
-                    .HasMaxLength(50);
-
-                entity.HasOne(d => d.user)
-                    .WithMany()
-                    .HasForeignKey(d => d.userid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_vendor_user_login_vendor_company_user");
-            });
-
-            modelBuilder.Entity<vos_approval_tasks_product>(entity =>
-            {
-                entity.ToTable("vos_approval_tasks_product");
-
-                entity.HasIndex(e => e.product_id, "ixfk_vos_approval_tasks_vendor_product");
-
-                entity.Property(e => e.id).HasMaxLength(50);
-
-                entity.Property(e => e.case_worker_check_outcome).HasMaxLength(50);
-
-                entity.Property(e => e.case_worker_check_outcome_rationale).HasMaxLength(5000);
-
-                entity.Property(e => e.qc_check_outcome).HasMaxLength(50);
-
-                entity.Property(e => e.qc_check_outcome_rationale).HasMaxLength(5000);
-
-                entity.Property(e => e.rework_check_outcome).HasMaxLength(50);
-
-                entity.Property(e => e.rework_check_outcome_rationale).HasMaxLength(5000);
-
-                entity.Property(e => e.rework_qc_check).HasMaxLength(50);
-
-                entity.Property(e => e.rework_qc_check_rationaile).HasMaxLength(5000);
-
-                entity.Property(e => e.spotlight_other_data).HasMaxLength(500);
-
-                entity.HasOne(d => d.product)
-                    .WithMany(p => p.vos_approval_tasks_products)
-                    .HasForeignKey(d => d.product_id)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_vos_approval_tasks_vendor_product");
-            });
-
-            modelBuilder.Entity<vos_approval_tasks_vendor>(entity =>
-            {
-                entity.HasKey(e => e.vendor_id)
-                    .HasName("pk_vendor_approval_tasks");
-
-                entity.ToTable("vos_approval_tasks_vendor");
-
-                entity.HasIndex(e => e.vendor_id, "ixfk_vendor_approval_tasks_vendor_company");
-
-                entity.Property(e => e.vendor_id).ValueGeneratedNever();
-
-                entity.Property(e => e.application_form).HasMaxLength(500);
-
-                entity.Property(e => e.approve_reject_notes)
-                    .IsRequired()
-                    .HasMaxLength(5000);
-
-                entity.Property(e => e.check_secondary_outcome_notes).HasMaxLength(500);
-
-                entity.HasOne(d => d.vendor)
-                    .WithOne(p => p.vos_approval_tasks_vendor)
-                    .HasForeignKey<vos_approval_tasks_vendor>(d => d.vendor_id)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_vendor_approval_tasks_vendor_company");
             });
 
             modelBuilder.Entity<companies_house_api_result>(entity =>
