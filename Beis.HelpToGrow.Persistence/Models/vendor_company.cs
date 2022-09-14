@@ -34,6 +34,7 @@ namespace Beis.HelpToGrow.Persistence.Models
         public string ip_access_end { get; set; }
         public string edit_log { get; set; }
         public string ipaddresses { get; set; }
+        public DateTime? sync_time { get; set; }
         public virtual ICollection<vendor_company_user> vendor_company_users { get; set; }
     }
 }
