@@ -130,13 +130,6 @@ namespace Beis.HelpToGrow.Persistence
                 entity.HasKey(e => e.enterprise_id);
 
                 entity.ToTable("enterprise");
-
-                entity.HasIndex(e => e.companies_house_no, "IX_enterprise_companies_house_no")
-                    .IsUnique();
-
-                entity.HasIndex(e => e.fca_no, "IX_enterprise_fca_no")
-                    .IsUnique();
-
                 entity.Property(e => e.applicant_email_address).IsRequired();
 
                 entity.Property(e => e.applicant_name).IsRequired();
@@ -149,7 +142,20 @@ namespace Beis.HelpToGrow.Persistence
                     .WithOne(_ => _.enterprise)               
                     .HasForeignKey<enterprise>()
                     .HasConstraintName("FK_enterprise_indesser_api_call_status");
+                
+                
             });
+
+
+            modelBuilder.Entity<token_type>(entity =>
+            {
+                entity.HasKey(e => e.token_type_id);
+
+                entity.ToTable("token_type");
+
+                entity.Property(e => e.token_type_desc).IsRequired();
+            });
+
 
             modelBuilder.Entity<enterprise_eligibility_status>(entity =>
             {
@@ -989,6 +995,12 @@ namespace Beis.HelpToGrow.Persistence
                 entity.HasOne<token_cancellation_status>(x => x.token_Cancellation_Status)
                 .WithMany()
                 .HasForeignKey(x => x.cancellation_status_id);
+
+                entity.HasOne<token_type>(x => x.token_type)
+                .WithMany()
+                .HasForeignKey(x => x.token_type_id);
+
+                entity.Property(e => e.token_type_id).HasDefaultValue(1);
 
                 entity.ToTable("token");
             });

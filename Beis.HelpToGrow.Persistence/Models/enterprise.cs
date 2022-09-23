@@ -39,5 +39,6 @@ namespace Beis.HelpToGrow.Persistence.Models
 
         public bool? marketing_consent_by_phone { get; set; }
         public virtual indesser_api_call_status indesser_api_call_status { get; set; }
+    
     }
 }
