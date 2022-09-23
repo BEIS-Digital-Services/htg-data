@@ -1097,7 +1097,6 @@ namespace Beis.HelpToGrow.Persistence
                 entity.Property(e => e.edit_log).HasMaxLength(1);
 
                 entity.Property(e => e.encryption_code)
-                    .IsRequired()
                     .HasMaxLength(50)
                     .HasComment(
                         "16 digit encryption salt to be generate during the record creation. This is a unique record");
