@@ -38,9 +38,7 @@ namespace Beis.HelpToGrow.Persistence.Models
         public string applicant_phone_number { get; set; }
 
         public bool? marketing_consent_by_phone { get; set; }
-
-        public int user_journey_type_id { get; set; }
         public virtual indesser_api_call_status indesser_api_call_status { get; set; }
-        public virtual user_journey_type user_journey_type { get; set; }
+    
     }
 }

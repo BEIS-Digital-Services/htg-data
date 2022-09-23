@@ -143,19 +143,17 @@ namespace Beis.HelpToGrow.Persistence
                     .HasForeignKey<enterprise>()
                     .HasConstraintName("FK_enterprise_indesser_api_call_status");
                 
-                entity.HasOne(d => d.user_journey_type)
-                .WithMany()
-                .HasForeignKey(x => x.user_journey_type_id);
+                
             });
 
 
-            modelBuilder.Entity<user_journey_type>(entity =>
+            modelBuilder.Entity<token_type>(entity =>
             {
-                entity.HasKey(e => e.user_journey_type_id);
+                entity.HasKey(e => e.token_type_id);
 
-                entity.ToTable("user_journey_type");
+                entity.ToTable("token_type");
 
-                entity.Property(e => e.user_journey_type_desc).IsRequired();
+                entity.Property(e => e.token_type_desc).IsRequired();
             });
 
 
@@ -998,7 +996,7 @@ namespace Beis.HelpToGrow.Persistence
                 .WithMany()
                 .HasForeignKey(x => x.cancellation_status_id);
 
-                entity.HasOne<user_journey_type>(x => x.token_type)
+                entity.HasOne<token_type>(x => x.token_type)
                 .WithMany()
                 .HasForeignKey(x => x.token_type_id);
 
