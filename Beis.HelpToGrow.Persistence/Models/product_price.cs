@@ -30,7 +30,7 @@ namespace Beis.HelpToGrow.Persistence.Models
         public long contract_duration_discount { get; set; }
         public string contract_duration_discount_description { get; set; }
         public bool contract_duration_discount_flag { get; set; }
-        public long contract_duration_discount_percentage { get; set; }
+        public decimal contract_duration_discount_percentage { get; set; }
         public string contract_duration_discount_unit { get; set; }
         public string discount_application_description { get; set; }
         public bool discount_flag { get; set; }
