@@ -15,7 +15,7 @@ namespace Beis.HelpToGrow.Persistence.Models
         public DateTime token_expiry { get; set; }
         public long redemption_status_id { get; set; }
         public DateTime? redemption_date { get; set; }
-        public long product { get; set; }
+        public long? product { get; set; }
         public long reconciliation_status_id { get; set; }
         public string authorisation_code { get; set; }
         public bool reminder_1 { get; set; }
