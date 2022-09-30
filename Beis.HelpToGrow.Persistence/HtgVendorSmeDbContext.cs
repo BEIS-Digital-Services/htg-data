@@ -129,13 +129,7 @@ namespace Beis.HelpToGrow.Persistence
             {
                 entity.HasKey(e => e.enterprise_id);
 
-                entity.ToTable("enterprise");
-
-                entity.HasIndex(e => e.companies_house_no, "IX_enterprise_companies_house_no")
-                    .IsUnique();
-
-                entity.HasIndex(e => e.fca_no, "IX_enterprise_fca_no")
-                    .IsUnique();
+                entity.ToTable("enterprise");           
 
                 entity.Property(e => e.applicant_email_address).IsRequired();
 
