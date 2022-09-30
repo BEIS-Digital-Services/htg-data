@@ -23,17 +23,7 @@ namespace Beis.HelpToGrow.Persistence.Models
         public bool reminder_3 { get; set; }
         public string obfuscated_token { get; set; }
         public int? cancellation_status_id { get; set; }
-        /// <summary>
-        /// The readable token code that an SME can use to claim a discount
-        /// </summary>
-        public string readable_token { get; set; }
-        public int token_type_id { get; set; }
 
         public token_cancellation_status token_Cancellation_Status { get; set; }
-
-        /// <summary>
-        /// The type of user journery eg Softare discount or 1:1 Advice
-        /// </summary>
-        public token_type token_type { get; set; }
     }
 }
