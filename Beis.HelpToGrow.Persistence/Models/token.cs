@@ -34,6 +34,6 @@ namespace Beis.HelpToGrow.Persistence.Models
         /// <summary>
         /// The type of user journery eg Softare discount or 1:1 Advice
         /// </summary>
-        public token_type token_type { get; set; }
+        public user_journey_type token_type { get; set; }
     }
 }
