@@ -1000,8 +1000,6 @@ namespace Beis.HelpToGrow.Persistence
                 .WithMany()
                 .HasForeignKey(x => x.token_type_id);
 
-                entity.Property(e => e.token_type_id).HasDefaultValue(1);
-
                 entity.ToTable("token");
             });
 
